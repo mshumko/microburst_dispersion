@@ -1,5 +1,7 @@
 import json
 import dateutil.parser
+from datetime import datetime
+from typing import Union
 
 import numpy as np
 import pandas as pd
@@ -29,7 +31,7 @@ class Hires:
     'Flag', 'Lat', 'Lon', 'Loss_cone_type', 'MLT', 'McIlwainL', 'Sur_counts', 
     'Sur_flux', 'kp'])
     """
-    def __init__(self, sc_id, load_date) -> None:
+    def __init__(self, sc_id:int, load_date:Union[str, datetime, pd.Timestamp]) -> None:
         self.sc_id = sc_id
         if isinstance(load_date, str):
             self.load_date = dateutil.parser.parse(load_date)
@@ -37,7 +39,7 @@ class Hires:
             self.load_date = load_date
         return
 
-    def load(self):
+    def load(self) -> dict:
         """
         Searches for and loads the HiRes data into memory.
         """
