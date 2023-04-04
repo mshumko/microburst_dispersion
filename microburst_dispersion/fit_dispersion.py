@@ -7,19 +7,19 @@ import matplotlib.ticker
 import numpy as np
 import scipy.stats
 
-import plot_dispersion
 import microburst_dispersion
+import microburst_dispersion.plot_dispersion
 import microburst_dispersion.firebird
 
 print(f"Running on PyMC v{pm.__version__}")
 
-class Bayes_Fit(plot_dispersion.Dispersion):
+class Bayes_Fit(microburst_dispersion.plot_dispersion.Dispersion):
     def __init__(self, fb_id:int, channels:list=np.arange(6), 
                  catalog_version:int=5, fit_interval_s:float=0.3, 
                  plot_window_s:float=1, full_ylabels:bool=True,
                  annotate_fit:bool=False) -> None:
         """
-        Calculate the energy dispersion using plot_dispersion.Dispersion
+        Calculate the energy dispersion using microburst_dispersion.plot_dispersion.Dispersion
         and fit it using pymc3.
 
         Parameters
