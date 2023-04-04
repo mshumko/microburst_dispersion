@@ -1,0 +1,10 @@
+matplotlib
+numpy
+pandas
+sampex
+cdflib
+bumpversion
+scipy
+scikit-learn
+
+-e .

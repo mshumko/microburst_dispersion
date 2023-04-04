@@ -1,2 +1,2 @@
 # microburst_dispersion
-Calculate the dispersion of electron microburst precipitation 
+Calculate the time of flight dispersion of electron microburst precipitation 
