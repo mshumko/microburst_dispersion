@@ -33,7 +33,6 @@ import microburst_dispersion.firebird
 
 hr = microburst_dispersion.firebird.Hires(3, '2015-02-02').load()  
 print(hr.keys())
-print()
 print(hr.attrs.keys()) 
 ```
 
