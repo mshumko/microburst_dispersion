@@ -15,9 +15,9 @@ from matplotlib.ticker import FuncFormatter
 from matplotlib.patches import ConnectionPatch
 import matplotlib.gridspec as gridspec
 
-import fbrbsp
-import fbrbsp.load.firebird
-import fbrbsp.duration.fit
+import microburst_dispersion
+import microburst_dispersion.firebird
+import microburst_dispersion.fit_duration
 
 # matplotlib.rcParams.update({'font.size': 13})
 
@@ -36,7 +36,7 @@ class Dispersion:
         channels: list or np.array
             The energy channels to plot.
         catalog_version: int 
-            The microburst catalog version located in fbrbsp/data/
+            The microburst catalog version located in microburst_dispersion/data/
         fit_interval_s: float
             The fit interval used to fit microbursts in fit.py
         plot_window_s: float
@@ -62,7 +62,7 @@ class Dispersion:
         self.annotate_fit = annotate_fit
 
         catalog_name = f'FU{self.fb_id}_microburst_catalog_{str(self.catalog_version).zfill(2)}.csv'
-        catalog_path = fbrbsp.config['here'].parent / 'data' / catalog_name
+        catalog_path = microburst_dispersion.config['here'].parent / 'data' / catalog_name
         self.catalog = pd.read_csv(catalog_path)
         self.catalog['Time'] = pd.to_datetime(self.catalog['Time'])
         return
@@ -93,7 +93,7 @@ class Dispersion:
                              f'observed at {self.microburst_info["Time"]}')
         
         if self.current_date != self._time.date():
-            self.hr = fbrbsp.load.firebird.Hires(self.fb_id, self._time).load()
+            self.hr = microburst_dispersion.firebird.Hires(self.fb_id, self._time).load()
             self.cadence_s = float(self.hr.attrs["CADENCE"])
             self.cadence_ms = 1000*self.cadence_s
             self.center_energy, self.energy_range, self.energy_range_array = self.get_energy_channels()
@@ -207,7 +207,7 @@ class Dispersion:
             if np.isnan(popt[0]):  # Plot just the data if the fit failed.
                 continue
 
-            gaus_y = fbrbsp.duration.fit.Duration.gaus_lin_function(x_data_seconds, *popt)
+            gaus_y = microburst_dispersion.fit_duration.Duration.gaus_lin_function(x_data_seconds, *popt)
             ax_i.plot(time_array, gaus_y/self.cadence_s, c=color, ls='--')
 
             if not self.annotate_fit:

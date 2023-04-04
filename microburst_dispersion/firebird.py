@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import sampex
 
-import fbrbsp # TODO: change.
+import microburst_dispersion
 
 base_data_url = 'https://solar.physics.montana.edu/FIREBIRD_II/'
 
@@ -47,7 +47,7 @@ class Hires:
         return self.data
 
     def _find_file(self):
-        local_files = list(fbrbsp.config["fb_data_dir"].rglob(self._file_match))
+        local_files = list(microburst_dispersion.config["fb_data_dir"].rglob(self._file_match))
 
         if len(local_files) == 1:
             self.file_path = local_files[0]
@@ -55,7 +55,7 @@ class Hires:
             # File not found locally. Check online.
             downloader = sampex.Downloader(
                 base_data_url + f'/Data/FU_{self.sc_id}/hires/',
-                download_dir=fbrbsp.config["fb_data_dir"] / f'FU_{self.sc_id}' / 'hires'
+                download_dir=microburst_dispersion.config["fb_data_dir"] / f'FU_{self.sc_id}' / 'hires'
                 )
             matched_downloaders = downloader.ls(match=self._file_match)
             self.file_path = matched_downloaders[0].download() 

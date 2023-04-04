@@ -8,8 +8,8 @@ import numpy as np
 import scipy.stats
 
 import plot_dispersion
-import fbrbsp
-import fbrbsp.load.firebird
+import microburst_dispersion
+import microburst_dispersion.firebird
 
 print(f"Running on PyMC v{pm.__version__}")
 
@@ -29,7 +29,7 @@ class Bayes_Fit(plot_dispersion.Dispersion):
         channels: list or np.array
             The energy channels to plot.
         catalog_version: int 
-            The microburst catalog version located in fbrbsp/data/
+            The microburst catalog version located in microburst_dispersion/data/
         fit_interval_s: float
             The fit interval used to fit microbursts in fit.py
         plot_window_s: float
@@ -62,7 +62,7 @@ class Bayes_Fit(plot_dispersion.Dispersion):
             raise ValueError(f'The desired microburst plot time is {dt} '
                              f'seconds away from the closest microburst '
                              f'observed at {self.microburst_info["Time"]}')
-        self.hr = fbrbsp.load.firebird.Hires(self.fb_id, time).load()
+        self.hr = microburst_dispersion.firebird.Hires(self.fb_id, time).load()
         self.cadence_s = float(self.hr.attrs["CADENCE"])
         self.cadence_ms = 1000*self.cadence_s
         self.center_energy, self.energy_range, self.energy_range_array = super().get_energy_channels()

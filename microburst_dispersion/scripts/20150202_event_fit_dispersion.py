@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 
-from fbrbsp.dispersion.fit_dispersion import Bayes_Fit
+from microburst_dispersion.fit_dispersion import Bayes_Fit
 
 plot_window_s=1 
 time = '2015-02-02T06:12:26.310000'

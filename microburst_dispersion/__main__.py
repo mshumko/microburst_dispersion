@@ -27,7 +27,7 @@ def check_directory(dir_str, default_dir):
 
 
 if (len(sys.argv) > 1) and (sys.argv[1] in ['init', 'initialize', 'config', 'configure']):
-    print('Running the fbrbsp configuration script.')
+    print('Running the microburst_dispersion configuration script.')
     
     s = (
         f"Where is the FIREBIRD-II data directory? Press enter for the default "
