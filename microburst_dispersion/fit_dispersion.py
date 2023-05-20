@@ -104,7 +104,7 @@ class Bayes_Fit(microburst_dispersion.plot_dispersion.Dispersion):
             self.ax[-1].text(0.99, 0, linear_fit_str, transform=self.ax[-1].transAxes, 
                         va='bottom', ha='right', color='k', fontsize=13)
                 
-        if self.energy_dist is not None:
+        if hasattr(self, 'energy_dist') and (self.energy_dist is not None):
             _xerrs = self.xerrs
         else:
             _xerrs = None
