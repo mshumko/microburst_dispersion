@@ -27,13 +27,13 @@ center_energy = np.array([
 
 fig, ax = plt.subplots(figsize=(5, 5))
 cmap = matplotlib.colormaps['viridis']
+colors = ['k', 'purple', 'b', 'c', 'g', 'r']
 # cmap = cmap.reversed()
 for i, (time_i, col_flux_i) in enumerate(zip(time[::2], col_flux[::2, :])):
-    ax.plot(center_energy, col_flux_i, label=f'{time_i:%S.%f}', color=cmap(i/col_flux[::2, :].shape[0]))
+    ax.plot(center_energy, col_flux_i, label=f'{time_i:%S.%f}', color=colors[i])
 
 ax.legend(title='Time [Seconds]')
-# ax[0].set(yscale='log', xlabel='Time [S]', ylabel='Flux')
-plt.suptitle(f'FU{fb_id} Energy Spectrum\n{time_range[0]}-{time_range[1]}')
+plt.suptitle(f'FU{fb_id} Energy Spectrum\n{str(time_range[0])[:-3]} to {str(time_range[1])[:-3]}')
 ax.set(yscale='log', xlabel='Energy [keV]', ylabel='Flux')
 plt.tight_layout()
 plt.show()
