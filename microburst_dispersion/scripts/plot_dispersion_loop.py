@@ -39,6 +39,7 @@ class Dispersion_Summary():
         return
 
     def loop(self, debug=True):
+        self.t0_keys = [f't0_{channel}' for channel in self.channels]
         if not debug:
             save_dir = microburst_dispersion.config['here'].parent / 'plots' / 'dispersion_summary'
             if not save_dir.exists():
@@ -47,6 +48,8 @@ class Dispersion_Summary():
 
         for i, row in self.catalog.iterrows():
             print(f'Progress: {i}/{self.catalog.shape[0]}')
+            if np.any(pd.isnull(row[self.t0_keys].to_numpy())):
+                continue  # The fit failed somewhere.
             self.microburst_info = row
             current_date = date.min
             if current_date != row['Time'].date():
@@ -71,7 +74,7 @@ class Dispersion_Summary():
             self._format_times(self.ax[-2])
             self.ax[-2].set_xlabel('Time [HH:MM:SS]')
 
-            plt.tight_layout()
+            # plt.tight_layout()
             if debug:
                 plt.show()
             else: 
@@ -238,8 +241,7 @@ class Dispersion_Summary():
     
     def _get_dispersion(self):
         # Time differences with respect to channel 0
-        t0_keys = [f't0_{channel}' for channel in self.channels]
-        t0 = [dateutil.parser.parse(self.microburst_info[t0_key]) for t0_key in t0_keys]
+        t0 = [dateutil.parser.parse(self.microburst_info[t0_key]) for t0_key in self.t0_keys]
         self.t0_diff_ms = [1E3*(t0_i - t0[0]).total_seconds() for t0_i in t0]
 
         self.xerrs = [xerr for xerr in self.energy_range]
