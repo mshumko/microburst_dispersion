@@ -230,12 +230,12 @@ class Dispersion_Summary():
         self._get_dispersion()
         ax.errorbar(self.center_energy, self.t0_diff_ms, c='k', marker='.', 
             yerr=self.yerrs, xerr=self.xerrs, capsize=2, ls='None')
-        max_abs_lim = 1.1*np.max(np.abs(ax.get_ylim()))
-        ax.set_ylim(-max_abs_lim, max_abs_lim)
+        # max_abs_lim = 1.1*np.max(np.abs(ax.get_ylim()))
+        ax.set_ylim(-50, 50)
         ax.axhline(c='k', ls='--')
         ax.set(xlabel='Energy [keV]', ylabel='Peak time delay [ms]\n(ch[N]-ch[0])')
 
-        locator=matplotlib.ticker.FixedLocator(np.linspace(-max_abs_lim, max_abs_lim, num=5))
+        locator=matplotlib.ticker.FixedLocator(np.linspace(-50, 50, num=5))
         ax.yaxis.set_major_locator(locator)
         return
     
@@ -258,7 +258,7 @@ if __name__ == '__main__':
     catalog_version:int=5
     plot_window_s = 1
 
-    for sc_id in [3, 4]:
+    for sc_id in [4]:
         d = Dispersion_Summary(
             sc_id, 
             catalog_version=catalog_version, 

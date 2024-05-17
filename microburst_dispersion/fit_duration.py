@@ -328,5 +328,5 @@ if __name__ == "__main__":
     # for ch in range(6):
     #     d = Duration(3, 5, validation_plots=False, channels=ch)
     #     d.loop()
-    d = Duration(3, 5, validation_plots=True)
+    d = Duration(4, 5, validation_plots=False)
     d.loop()
