@@ -130,3 +130,5 @@ dmypy.json
 config.ini
 
 plots/dispersion_summary/
+# Temporary Microsoft Office files.
+~$*  
